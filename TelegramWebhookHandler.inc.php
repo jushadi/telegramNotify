@@ -125,6 +125,18 @@ class TelegramHandler
 
     function sendMessage($chatID, $message)
     {
+        $keyboard =  
+                [
+                    'keyboard' => [[[
+                        'text' => 'Bagikan Kontak',
+                        'request_contact' => true,
+                        ]]],
+                    'one_time_keyboard' => true,
+                    'resize_keyboard' => true,
+                    'selective' => true
+                ];
+
+        $keyboard = json_encode($keyboard, true);        
         $url = "https://api.telegram.org/bot" . $this->getTelegramToken() . "/sendMessage?chat_id=" . $chatID . "&parse_mode=HTML";
         $url = $url . "&text=" . urlencode($message);
         $ch = curl_init();
